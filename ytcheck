@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# One-liner to check which video will be top hit for a 
+# youtube search
+
+youtube-dl -j "ytsearch1:$*" | jq '.title'

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Script to add Youtube subscription to newsboat URLs
+
+youtube-dl -j "ytsearch1:$*" > /tmp/sub.txt
+channel_id=$(</tmp/sub.txt jq -r '.channel_id') 
+channel_url=$(</tmp/sub.txt jq -r '.channel_id' | sed 's!^!https://www.youtube.com/feeds/videos.xml?channel_id=!')
+channel_name=$(</tmp/sub.txt jq -r '.uploader')
+
+echo "$channel_url \"!$channel_name\" Exclude Videos" >> /home/will/.newsboat/urls
+
+echo "Adding $channel_name to Newsboat subscriptions"

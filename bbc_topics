@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# WIP script to capture Topics in BBC articles and add as metadata
+# for newsboat query feeds
+
+curl -s $1 | grep 'topic_names' | grep -v 'bbc' >> ~/bbc_topics.txt
+

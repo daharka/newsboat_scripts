@@ -1,0 +1,44 @@
+# General
+auto-reload yes
+browser "nohup /usr/bin/qutebrowser %u &"
+
+# Macros
+macro m set browser "nohup /usr/bin/mpv %u &"; open-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro M set browser "nohup /usr/bin/mpv %u &"; open-all-unread-in-browser ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro l set browser "/usr/bin/lynx %u"; open-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro r set browser "/usr/local/bin/rokuyt %u"; open-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro R set browser "/echo %u >> /home/will/rokulog.m3u"; open-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro f set browser "nohup /usr/bin/firefox %u &"; open-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro F set browser "nohup /usr/bin/firefox %u &"; open-all-unread-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro i set browser "nohup /usr/local/bin/reddit_viewer %u &"; open-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro I set browser "nohup /usr/local/bin/reddit_viewer %u &"; open-all-unread-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro B set browser "bbc_topics %u"; open-all-unread-in-browser ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro O set browser "nohup /usr/bin/qutebrowser %u &"; open-all-unread-in-browser-and-mark-read ;
+macro o set browser "nohup /usr/bin/qutebrowser %u &"; open-in-browser-and-mark-read ;
+macro p set browser "echo %u >> /home/will/backlog.m3u"; open-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+macro P set browser "echo %u >> /home/will/backlog.m3u"; open-all-unread-in-browser-and-mark-read ; set browser "nohup /usr/bin/qutebrowser %u &"
+
+# Filters
+
+
+# Kill List
+ignore-article "https://www.youtube.com/feeds/videos.xml?channel_id=UC2iUwfYi_1FCGGqhOUNx-iA" "title !~ \"Pitch\""
+ignore-article "https://www.youtube.com/feeds/videos.xml?channel_id=UCqg5FCR7NrpvlBWMXdt-5Vg" "title !~ \"Zero Punctuation\""
+ignore-article "https://www.escapistmagazine.com/v2/feed" "title !~ \"Zero|Dev\""
+ignore-article "https://www.youtube.com/feeds/videos.xml?channel_id=UCXuqSBlHAE6Xw-yeJA0Tunw" "title !~ \"Linux\""
+ignore-article "http://feeds.bbci.co.uk/news/rss.xml" "link =~ \"bbc.co.uk/sport\""
+ignore-article "http://feeds.bbci.co.uk/news/uk/rss.xml" "title =~ \"[Mm]eghan\""
+ignore-article "http://feeds.bbci.co.uk/news/rss.xml" "title =~ \"[Mm]eghan\""
+ignore-mode "display"
+
+# Key Bindings
+bind-key h quit
+bind-key j down
+bind-key k up
+bind-key l open
+bind-key i toggle-article-read
+
+bind-key L set-filter
+
+# Highlighting
+#highlight where  regex        font  bg       additional

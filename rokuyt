@@ -1,0 +1,16 @@
+#!/bin/bash
+
+ROKU_IP="192.168.1.4"
+
+if [[ $* =~ ^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).* ]]; then
+	echo "issa youtuba"
+	yturl=$(perl -e '$r = shift; $r =~ s/^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/$7/;print $r' $1)
+elif  [[ $* =~ reddit\.com\/r\/videos ]]; then
+    echo "issa reddita"
+    yturl=$(youtube-dl -j $1 | jq -r '.id')
+else
+	echo "notta youtuba $*"
+	yturl=$(youtube-dl -j --flat-playlist "ytsearch1:$*" | jq -r '.id')
+fi
+
+curl -X POST "http://$ROKU_IP:8060/launch/837?contentId=$yturl&mediaType=live"

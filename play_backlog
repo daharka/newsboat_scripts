@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Script to play Newsboat generated backlog.
+
+BACKLOG_FILE=backlog.m3u
+BACKLOG_PATH=$HOME
+TEMP_JSON_FILE=/tmp/nextvidjson
+while [ -s $BACKLOG_FILE ]; do
+  nextvidurl=$(sed -n 1p $BACKLOG_PATH/$BACKLOG_FILE)
+  youtube-dl -j $nextvidurl > $TEMP_JSON_FILE
+  nextvid=$(jq '.title' $TEMP_JSON_FILE)
+  nextviddur=$(  jq   -r '.duration' $TEMP_JSON_FILE \
+               | perl -MTime::Seconds \
+                      -ne 'print Time::Seconds->new($_)->pretty . "\n"')
+  echo "Next video is $nextvid (duration $nextviddur). Play?"
+  read a 
+  case $a in
+    "h") ;;
+    "n") break;;
+    "r") rokuyt $nextvidurl && continue ;;
+    "s") sed -i 1d $BACKLOG_PATH/$BACKLOG_FILE && continue;;
+    "S") 
+         echo "$nextvidurl" >> $BACKLOG_PATH/$BACKLOG_FILE
+         sed -i 1d $BACKLOG_PATH/$BACKLOG_FILE 
+         ;;
+      *) sed -i 1d $BACKLOG_PATH/$BACKLOG_FILE
+  esac
+  mpv $nextvidurl

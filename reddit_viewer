@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ $1 =~ reddit ]]; then
+  echo "Opening $1"
+  curl -s -A 'Hello Reddit how are you' $1".json" > /tmp/rvpd.json
+  rvpd_url=$(</tmp/rvpd.json jq -r '.[0].data.children[0].data.url')
+  echo "URL is $rvpd_url"
+  case $rvpd_url in 
+    *.jpg)        nohup feh $rvpd_url &;;
+    *.png)        nohup feh $rvpd_url &;;
+    *.gif)        nohup mpv --pause $rvpd_url &;;
+    *.gifv)       nohup mpv --pause $rvpd_url &;;
+    *gfycat*)     nohup mpv --pause $rvpd_url &;;
+    *imgur*)      echo "Opening $rvpd_url.jpg"
+                  nohup feh $rvpd_url".jpg" &;;
+    *v.redd.it*)  nohup mpv --pause $rvpd_url &;;
+    *youtu*)      nohup mpv --pause $rvpd_url &;;
+    *) echo "$rvpd_url not on list. Soz";;
+  esac
+fi
